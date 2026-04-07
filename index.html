@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jowlab — Joel González | Technical Analyst & Solution Architect</title>
+  <meta name="description" content="Jowlab — Espacio profesional de Joel González. Analista técnico especializado en Business Central, integraciones, arquitectura de soluciones y mejora de procesos." />
+  <meta name="theme-color" content="#0a0a0f" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ═══ PRELOADER ═══ -->
+  <div id="preloader" aria-hidden="true">
+    <div class="preloader__inner">
+      <div class="preloader__logo">
+        <span class="preloader__bracket">{</span>
+        <span class="preloader__text">Jowlab</span>
+        <span class="preloader__bracket">}</span>
+      </div>
+      <div class="preloader__bar">
+        <div class="preloader__progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ CUSTOM CURSOR ═══ -->
+  <div class="cursor" aria-hidden="true">
+    <div class="cursor__dot"></div>
+    <div class="cursor__ring"></div>
+  </div>
+
+  <!-- ═══ NOISE OVERLAY ═══ -->
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- ═══ NAVIGATION ═══ -->
+  <header class="nav" id="nav">
+    <a href="#" class="nav__logo">
+      <span class="nav__logo-bracket">{</span>
+      <span>Jowlab</span>
+      <span class="nav__logo-bracket">}</span>
+    </a>
+    <nav class="nav__links" role="navigation" aria-label="Main navigation">
+      <a href="#about" class="nav__link" data-magnetic>Sobre mí</a>
+      <a href="#expertise" class="nav__link" data-magnetic>Expertise</a>
+      <a href="#stack" class="nav__link" data-magnetic>Stack</a>
+      <a href="#ideas" class="nav__link" data-magnetic>Ideas</a>
+      <a href="#contact" class="nav__link" data-magnetic>Contacto</a>
+    </nav>
+    <button class="nav__menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <!-- ═══ MOBILE MENU ═══ -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <nav class="mobile-menu__nav">
+      <a href="#about" class="mobile-menu__link">Sobre mí</a>
+      <a href="#expertise" class="mobile-menu__link">Expertise</a>
+      <a href="#stack" class="mobile-menu__link">Stack</a>
+      <a href="#ideas" class="mobile-menu__link">Ideas</a>
+      <a href="#contact" class="mobile-menu__link">Contacto</a>
+    </nav>
+  </div>
+
+  <main>
+
+    <!-- ═══ HERO ═══ -->
+    <section class="hero" id="hero">
+      <div class="hero__bg">
+        <div class="hero__grid-lines" aria-hidden="true"></div>
+        <div class="hero__glow hero__glow--1"></div>
+        <div class="hero__glow hero__glow--2"></div>
+      </div>
+      <div class="hero__content">
+        <p class="hero__tag reveal-text">Technical Analyst · Solution Architect</p>
+        <h1 class="hero__title">
+          <span class="hero__title-line reveal-text">Joel</span>
+          <span class="hero__title-line hero__title-line--accent reveal-text">González</span>
+        </h1>
+        <p class="hero__subtitle reveal-text">
+          Construyendo soluciones con sentido técnico<br />
+          <span class="hero__subtitle-highlight">y útil para el negocio.</span>
+        </p>
+        <div class="hero__cta reveal-text">
+          <a href="#about" class="btn btn--primary" data-magnetic>
+            <span>Descubre más</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7.8H7.8"/></svg>
+          </a>
+          <a href="#contact" class="btn btn--ghost" data-magnetic>
+            <span>Contacto</span>
+          </a>
+        </div>
+      </div>
+      <div class="hero__scroll-indicator" aria-hidden="true">
+        <div class="hero__scroll-line"></div>
+        <span>Scroll</span>
+      </div>
+    </section>
+
+    <!-- ═══ ABOUT ═══ -->
+    <section class="section about" id="about">
+      <div class="section__container">
+        <div class="section__header">
+          <span class="section__number">01</span>
+          <h2 class="section__title reveal-text">Sobre mí</h2>
+        </div>
+        <div class="about__grid">
+          <div class="about__intro reveal-up">
+            <p class="about__lead">
+              Soy <strong>analista técnico especialista</strong> con un perfil muy orientado a entender negocio, 
+              bajar procesos a tierra y convertirlos en soluciones que funcionan de verdad.
+            </p>
+          </div>
+          <div class="about__details reveal-up">
+            <p>
+              Mi especialidad está en <strong>Business Central</strong>, integraciones, lógica de negocio, 
+              análisis técnico-funcional y mejora de procesos — pero no me limito al ecosistema Microsoft.
+            </p>
+            <p>
+              También trabajo con SQL, modelado de datos, Power BI, APIs, automatización, Git/GitHub, 
+              Azure DevOps y me muevo con soltura en entornos de desarrollo donde hace falta pensar 
+              <strong>arquitectura, trazabilidad y escalabilidad</strong>.
+            </p>
+          </div>
+          <div class="about__philosophy reveal-up">
+            <blockquote class="about__quote">
+              <span class="about__quote-mark">"</span>
+              No me quedo en picar código ni en ejecutar tareas sin criterio: necesito entender cómo encaja todo, 
+              detectar lo que falla de fondo y construir soluciones con sentido.
+              <span class="about__quote-mark">"</span>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ EXPERTISE ═══ -->
+    <section class="section expertise" id="expertise">
+      <div class="section__container">
+        <div class="section__header">
+          <span class="section__number">02</span>
+          <h2 class="section__title reveal-text">Expertise</h2>
+        </div>
+        <div class="expertise__grid">
+          <article class="expertise__card reveal-up" data-tilt>
+            <div class="expertise__card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            </div>
+            <h3>Análisis Técnico-Funcional</h3>
+            <p>Traducción de necesidades de negocio en especificaciones técnicas precisas y ejecutables.</p>
+          </article>
+          <article class="expertise__card reveal-up" data-tilt>
+            <div class="expertise__card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+            </div>
+            <h3>Business Central & ERP</h3>
+            <p>Desarrollo en AL, personalización de procesos, integraciones y extensiones para Dynamics 365 BC.</p>
+          </article>
+          <article class="expertise__card reveal-up" data-tilt>
+            <div class="expertise__card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            <h3>Integraciones & APIs</h3>
+            <p>Diseño e implementación de flujos entre sistemas, APIs REST, webhooks y automatizaciones.</p>
+          </article>
+          <article class="expertise__card reveal-up" data-tilt>
+            <div class="expertise__card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+            </div>
+            <h3>Arquitectura de Soluciones</h3>
+            <p>Pensamiento end-to-end: trazabilidad, escalabilidad y diseño de soluciones con visión de producto.</p>
+          </article>
+          <article class="expertise__card reveal-up" data-tilt>
+            <div class="expertise__card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+            </div>
+            <h3>Data & Analytics</h3>
+            <p>SQL avanzado, modelado de datos, Power BI y análisis para toma de decisiones informadas.</p>
+          </article>
+          <article class="expertise__card reveal-up" data-tilt>
+            <div class="expertise__card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+            </div>
+            <h3>DevOps & Automatización</h3>
+            <p>Git, GitHub, Azure DevOps, CI/CD, control del ciclo de desarrollo y procesos automatizados.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ TECH STACK ═══ -->
+    <section class="section stack" id="stack">
+      <div class="section__container">
+        <div class="section__header">
+          <span class="section__number">03</span>
+          <h2 class="section__title reveal-text">Tech Stack</h2>
+        </div>
+        <div class="stack__marquee" aria-label="Technology stack">
+          <div class="stack__track">
+            <div class="stack__item">AL</div>
+            <div class="stack__item">SQL</div>
+            <div class="stack__item">Power BI</div>
+            <div class="stack__item">Python</div>
+            <div class="stack__item">JavaScript</div>
+            <div class="stack__item">CSS</div>
+            <div class="stack__item">Azure DevOps</div>
+            <div class="stack__item">Git / GitHub</div>
+            <div class="stack__item">REST APIs</div>
+            <div class="stack__item">Business Central</div>
+            <div class="stack__item">MySQL</div>
+            <div class="stack__item">Dynamics 365</div>
+            <!-- Duplicated for seamless loop -->
+            <div class="stack__item">AL</div>
+            <div class="stack__item">SQL</div>
+            <div class="stack__item">Power BI</div>
+            <div class="stack__item">Python</div>
+            <div class="stack__item">JavaScript</div>
+            <div class="stack__item">CSS</div>
+            <div class="stack__item">Azure DevOps</div>
+            <div class="stack__item">Git / GitHub</div>
+            <div class="stack__item">REST APIs</div>
+            <div class="stack__item">Business Central</div>
+            <div class="stack__item">MySQL</div>
+            <div class="stack__item">Dynamics 365</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ IDEAS / USE CASES ═══ -->
+    <section class="section ideas" id="ideas">
+      <div class="section__container">
+        <div class="section__header">
+          <span class="section__number">04</span>
+          <h2 class="section__title reveal-text">Posibilidades</h2>
+          <p class="section__subtitle reveal-up">Ideas de lo que esta web puede llegar a ser.</p>
+        </div>
+        <div class="ideas__grid">
+          <article class="ideas__card reveal-up">
+            <span class="ideas__card-number">01</span>
+            <h3>Portfolio de Proyectos</h3>
+            <p>Casos de estudio detallados: problema, análisis, solución técnica y resultado. Demuestra tu forma de pensar y resolver.</p>
+            <div class="ideas__card-tags">
+              <span>Case Studies</span><span>Resultados</span>
+            </div>
+          </article>
+          <article class="ideas__card reveal-up">
+            <span class="ideas__card-number">02</span>
+            <h3>Blog Técnico</h3>
+            <p>Artículos sobre Business Central, integraciones, SQL, arquitectura y lecciones aprendidas. Posicionamiento como referente.</p>
+            <div class="ideas__card-tags">
+              <span>Artículos</span><span>SEO</span>
+            </div>
+          </article>
+          <article class="ideas__card reveal-up">
+            <span class="ideas__card-number">03</span>
+            <h3>Laboratorio de Herramientas</h3>
+            <p>Demos interactivas, snippets reutilizables, generadores de código AL y utilidades que compartes con la comunidad.</p>
+            <div class="ideas__card-tags">
+              <span>Open Source</span><span>Tools</span>
+            </div>
+          </article>
+          <article class="ideas__card reveal-up">
+            <span class="ideas__card-number">04</span>
+            <h3>Documentación Viva</h3>
+            <p>Guías de integración, patterns de arquitectura BC, y cookbooks técnicos navegables con búsqueda.</p>
+            <div class="ideas__card-tags">
+              <span>Docs</span><span>Knowledge Base</span>
+            </div>
+          </article>
+          <article class="ideas__card reveal-up">
+            <span class="ideas__card-number">05</span>
+            <h3>Dashboard Personal</h3>
+            <p>Visualización en tiempo real de tu actividad en GitHub, contribuciones, y métricas de proyectos vía APIs.</p>
+            <div class="ideas__card-tags">
+              <span>APIs</span><span>Real-time</span>
+            </div>
+          </article>
+          <article class="ideas__card reveal-up">
+            <span class="ideas__card-number">06</span>
+            <h3>Consultoría & Contacto</h3>
+            <p>Landing profesional para ofrecer servicios de consultoría técnica, análisis, y asesoría en procesos ERP.</p>
+            <div class="ideas__card-tags">
+              <span>Services</span><span>Branding</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CONTACT ═══ -->
+    <section class="section contact" id="contact">
+      <div class="section__container">
+        <div class="section__header">
+          <span class="section__number">05</span>
+          <h2 class="section__title reveal-text">Contacto</h2>
+        </div>
+        <div class="contact__content">
+          <p class="contact__lead reveal-up">
+            ¿Tienes un proyecto interesante o quieres colaborar?
+          </p>
+          <div class="contact__links reveal-up">
+            <a href="https://github.com/JoelGoGo" target="_blank" rel="noopener noreferrer" class="contact__link" data-magnetic>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              <span>GitHub</span>
+            </a>
+            <a href="https://linkedin.com/in/" target="_blank" rel="noopener noreferrer" class="contact__link" data-magnetic>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              <span>LinkedIn</span>
+            </a>
+            <a href="mailto:contacto@jowlab.dev" class="contact__link" data-magnetic>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <span>Email</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__left">
+        <span class="footer__logo">
+          <span class="nav__logo-bracket">{</span> Jowlab <span class="nav__logo-bracket">}</span>
+        </span>
+      </div>
+      <div class="footer__right">
+        <span>&copy; 2026 Joel González. Crafted with precision.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
