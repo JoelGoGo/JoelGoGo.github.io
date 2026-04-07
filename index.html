@@ -1,76 +1,72 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jowlab — Joel González | Technical Analyst & Solution Architect</title>
-  <meta name="description" content="Jowlab — Espacio profesional de Joel González. Analista técnico especializado en Business Central, integraciones, arquitectura de soluciones y mejora de procesos." />
-  <meta name="theme-color" content="#0a0a0f" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jowlab — Hub Personal | Joel González</title>
+  <meta name="description" content="Hub personal multi-propósito de Joel González: herramientas de desarrollo, portfolio técnico y recursos para profesionales IT.">
+  <meta name="author" content="Joel González">
+  <meta name="theme-color" content="#0a0a0f">
 
   <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
   <!-- GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
 
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- ═══ PRELOADER ═══ -->
-  <div id="preloader" aria-hidden="true">
+  <!-- Noise Overlay -->
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- Ambient Orbs (replaces custom cursor) -->
+  <div class="ambient" aria-hidden="true">
+    <div class="ambient__orb ambient__orb--1"></div>
+    <div class="ambient__orb ambient__orb--2"></div>
+    <div class="ambient__orb ambient__orb--3"></div>
+  </div>
+
+  <!-- Preloader -->
+  <div id="preloader" role="status" aria-label="Cargando">
     <div class="preloader__inner">
       <div class="preloader__logo">
         <span class="preloader__bracket">{</span>
         <span class="preloader__text">Jowlab</span>
         <span class="preloader__bracket">}</span>
       </div>
-      <div class="preloader__bar">
-        <div class="preloader__progress"></div>
-      </div>
+      <div class="preloader__bar"><div class="preloader__progress"></div></div>
     </div>
   </div>
 
-  <!-- ═══ CUSTOM CURSOR ═══ -->
-  <div class="cursor" aria-hidden="true">
-    <div class="cursor__dot"></div>
-    <div class="cursor__ring"></div>
-  </div>
-
-  <!-- ═══ NOISE OVERLAY ═══ -->
-  <div class="noise-overlay" aria-hidden="true"></div>
-
-  <!-- ═══ NAVIGATION ═══ -->
-  <header class="nav" id="nav">
-    <a href="#" class="nav__logo">
-      <span class="nav__logo-bracket">{</span>
-      <span>Jowlab</span>
-      <span class="nav__logo-bracket">}</span>
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <a href="#hero" class="nav__logo">
+      <span class="nav__logo-bracket">{</span> Jowlab <span class="nav__logo-bracket">}</span>
     </a>
-    <nav class="nav__links" role="navigation" aria-label="Main navigation">
-      <a href="#about" class="nav__link" data-magnetic>Sobre mí</a>
-      <a href="#expertise" class="nav__link" data-magnetic>Expertise</a>
-      <a href="#stack" class="nav__link" data-magnetic>Stack</a>
-      <a href="#ideas" class="nav__link" data-magnetic>Ideas</a>
-      <a href="#contact" class="nav__link" data-magnetic>Contacto</a>
-    </nav>
-    <button class="nav__menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false">
-      <span></span>
-      <span></span>
-      <span></span>
+    <div class="nav__links">
+      <a href="#about" class="nav__link">Sobre mí</a>
+      <a href="#expertise" class="nav__link">Expertise</a>
+      <a href="#tools" class="nav__link">Herramientas</a>
+      <a href="#projects" class="nav__link">Proyectos</a>
+      <a href="#contact" class="nav__link">Contacto</a>
+    </div>
+    <button class="nav__menu-btn" id="menuBtn" aria-label="Menú" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
     </button>
-  </header>
+  </nav>
 
-  <!-- ═══ MOBILE MENU ═══ -->
+  <!-- Mobile Menu -->
   <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
     <nav class="mobile-menu__nav">
       <a href="#about" class="mobile-menu__link">Sobre mí</a>
       <a href="#expertise" class="mobile-menu__link">Expertise</a>
-      <a href="#stack" class="mobile-menu__link">Stack</a>
-      <a href="#ideas" class="mobile-menu__link">Ideas</a>
+      <a href="#tools" class="mobile-menu__link">Herramientas</a>
+      <a href="#projects" class="mobile-menu__link">Proyectos</a>
       <a href="#contact" class="mobile-menu__link">Contacto</a>
     </nav>
   </div>
@@ -80,33 +76,57 @@
     <!-- ═══ HERO ═══ -->
     <section class="hero" id="hero">
       <div class="hero__bg">
-        <div class="hero__grid-lines" aria-hidden="true"></div>
+        <div class="hero__grid-lines"></div>
         <div class="hero__glow hero__glow--1"></div>
         <div class="hero__glow hero__glow--2"></div>
       </div>
       <div class="hero__content">
-        <p class="hero__tag reveal-text">Technical Analyst · Solution Architect</p>
-        <h1 class="hero__title">
-          <span class="hero__title-line reveal-text">Joel</span>
-          <span class="hero__title-line hero__title-line--accent reveal-text">González</span>
-        </h1>
-        <p class="hero__subtitle reveal-text">
-          Construyendo soluciones con sentido técnico<br />
-          <span class="hero__subtitle-highlight">y útil para el negocio.</span>
+        <span class="hero__tag reveal-up">Multi-purpose Personal Hub</span>
+        <div class="hero__title">
+          <span class="hero__title-line reveal-up">Joel</span>
+          <span class="hero__title-line hero__title-line--accent reveal-up">González</span>
+        </div>
+        <p class="hero__subtitle reveal-up">
+          Technical Analyst &amp; Developer — construyendo
+          <span class="hero__subtitle-highlight">soluciones inteligentes</span>
+          desde el análisis funcional hasta herramientas que potencian tu día a día.
         </p>
-        <div class="hero__cta reveal-text">
-          <a href="#about" class="btn btn--primary" data-magnetic>
-            <span>Descubre más</span>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7.8H7.8"/></svg>
+        <div class="hero__cta reveal-up">
+          <a href="#tools" class="btn btn--primary" data-magnetic>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+            Herramientas
           </a>
-          <a href="#contact" class="btn btn--ghost" data-magnetic>
-            <span>Contacto</span>
-          </a>
+          <a href="#about" class="btn btn--ghost" data-magnetic>Explorar Hub</a>
         </div>
       </div>
       <div class="hero__scroll-indicator" aria-hidden="true">
+        <span>scroll</span>
         <div class="hero__scroll-line"></div>
-        <span>Scroll</span>
+      </div>
+    </section>
+
+    <!-- ═══ METRICS ═══ -->
+    <section class="metrics" aria-label="Métricas destacadas">
+      <div class="metrics__track">
+        <div class="metrics__item reveal-up">
+          <span class="metrics__value" data-target="5">0</span><span class="metrics__suffix">+</span>
+          <span class="metrics__label">Años de experiencia</span>
+        </div>
+        <div class="metrics__divider"></div>
+        <div class="metrics__item reveal-up">
+          <span class="metrics__value" data-target="30">0</span><span class="metrics__suffix">+</span>
+          <span class="metrics__label">Proyectos entregados</span>
+        </div>
+        <div class="metrics__divider"></div>
+        <div class="metrics__item reveal-up">
+          <span class="metrics__value" data-target="12">0</span><span class="metrics__suffix">+</span>
+          <span class="metrics__label">Tecnologías</span>
+        </div>
+        <div class="metrics__divider"></div>
+        <div class="metrics__item reveal-up">
+          <span class="metrics__value" data-target="100">0</span><span class="metrics__suffix">%</span>
+          <span class="metrics__label">Compromiso</span>
+        </div>
       </div>
     </section>
 
@@ -115,32 +135,22 @@
       <div class="section__container">
         <div class="section__header">
           <span class="section__number">01</span>
-          <h2 class="section__title reveal-text">Sobre mí</h2>
+          <h2 class="section__title reveal-text">Sobre Mí</h2>
+          <p class="section__subtitle reveal-up">Donde el análisis de negocio se encuentra con la ingeniería de software.</p>
         </div>
         <div class="about__grid">
-          <div class="about__intro reveal-up">
-            <p class="about__lead">
-              Soy <strong>analista técnico especialista</strong> con un perfil muy orientado a entender negocio, 
-              bajar procesos a tierra y convertirlos en soluciones que funcionan de verdad.
-            </p>
+          <div class="about__lead reveal-up">
+            <p>Soy <strong>Joel González</strong>, analista técnico-funcional especializado en ecosistemas <strong>ERP</strong> y soluciones empresariales. Mi enfoque combina la comprensión profunda de los procesos de negocio con la capacidad técnica para transformarlos en soluciones eficientes y escalables.</p>
           </div>
           <div class="about__details reveal-up">
-            <p>
-              Mi especialidad está en <strong>Business Central</strong>, integraciones, lógica de negocio, 
-              análisis técnico-funcional y mejora de procesos — pero no me limito al ecosistema Microsoft.
-            </p>
-            <p>
-              También trabajo con SQL, modelado de datos, Power BI, APIs, automatización, Git/GitHub, 
-              Azure DevOps y me muevo con soltura en entornos de desarrollo donde hace falta pensar 
-              <strong>arquitectura, trazabilidad y escalabilidad</strong>.
-            </p>
+            <p>Trabajo principalmente con <strong>Microsoft Dynamics 365 Business Central</strong>, donde me muevo con soltura entre el análisis funcional, el desarrollo en AL, las integraciones vía API y la automatización de procesos. Mi día a día incluye traducir necesidades complejas de negocio en especificaciones técnicas claras y diseñar arquitecturas de datos eficientes.</p>
+            <p>Más allá del mundo ERP, me apasiona el <strong>desarrollo web</strong>, la ciencia de datos con <strong>Python</strong> y <strong>SQL avanzado</strong>, y la creación de herramientas que simplifiquen flujos de trabajo. Este hub es un reflejo de esa filosofía: un espacio donde la tecnología se pone al servicio de la productividad diaria.</p>
           </div>
           <div class="about__philosophy reveal-up">
             <blockquote class="about__quote">
-              <span class="about__quote-mark">"</span>
-              No me quedo en picar código ni en ejecutar tareas sin criterio: necesito entender cómo encaja todo, 
-              detectar lo que falla de fondo y construir soluciones con sentido.
-              <span class="about__quote-mark">"</span>
+              <span class="about__quote-mark">&ldquo;</span>
+              La mejor tecnología es la que desaparece en el flujo de trabajo — cuando la solución es tan natural que nadie piensa en ella, has hecho bien tu trabajo.
+              <span class="about__quote-mark">&rdquo;</span>
             </blockquote>
           </div>
         </div>
@@ -153,50 +163,228 @@
         <div class="section__header">
           <span class="section__number">02</span>
           <h2 class="section__title reveal-text">Expertise</h2>
+          <p class="section__subtitle reveal-up">Áreas de especialización técnica y funcional.</p>
         </div>
         <div class="expertise__grid">
           <article class="expertise__card reveal-up" data-tilt>
             <div class="expertise__card-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
             </div>
             <h3>Análisis Técnico-Funcional</h3>
-            <p>Traducción de necesidades de negocio en especificaciones técnicas precisas y ejecutables.</p>
+            <p>Traducción de requisitos de negocio a especificaciones técnicas. Modelado de procesos, análisis de gaps y diseño de soluciones que alinean tecnología con objetivos empresariales.</p>
           </article>
           <article class="expertise__card reveal-up" data-tilt>
             <div class="expertise__card-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
             </div>
-            <h3>Business Central & ERP</h3>
-            <p>Desarrollo en AL, personalización de procesos, integraciones y extensiones para Dynamics 365 BC.</p>
+            <h3>Business Central &amp; ERP</h3>
+            <p>Implementación, configuración y personalización de Dynamics 365 BC. Desarrollo en AL, extensiones, flujos de aprobación, dimensiones y reporting avanzado con integración nativa.</p>
           </article>
           <article class="expertise__card reveal-up" data-tilt>
             <div class="expertise__card-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
             </div>
-            <h3>Integraciones & APIs</h3>
-            <p>Diseño e implementación de flujos entre sistemas, APIs REST, webhooks y automatizaciones.</p>
+            <h3>Integraciones &amp; APIs</h3>
+            <p>Diseño e implementación de integraciones REST/SOAP entre sistemas ERP, CRM y plataformas de terceros. Middleware, webhooks y sincronización de datos en tiempo real.</p>
           </article>
           <article class="expertise__card reveal-up" data-tilt>
             <div class="expertise__card-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
             </div>
             <h3>Arquitectura de Soluciones</h3>
-            <p>Pensamiento end-to-end: trazabilidad, escalabilidad y diseño de soluciones con visión de producto.</p>
+            <p>Diseño end-to-end de arquitecturas empresariales con foco en trazabilidad, escalabilidad y visión de producto. Patrones de integración y microservicios aplicados al contexto ERP.</p>
           </article>
           <article class="expertise__card reveal-up" data-tilt>
             <div class="expertise__card-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
             </div>
-            <h3>Data & Analytics</h3>
-            <p>SQL avanzado, modelado de datos, Power BI y análisis para toma de decisiones informadas.</p>
+            <h3>Data &amp; Analytics</h3>
+            <p>SQL avanzado, modelado dimensional, Power BI, Python para análisis y automatización. Dashboards ejecutivos y pipelines de datos para toma de decisiones informadas.</p>
           </article>
           <article class="expertise__card reveal-up" data-tilt>
             <div class="expertise__card-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
             </div>
-            <h3>DevOps & Automatización</h3>
-            <p>Git, GitHub, Azure DevOps, CI/CD, control del ciclo de desarrollo y procesos automatizados.</p>
+            <h3>DevOps &amp; Automatización</h3>
+            <p>Git, GitHub, Azure DevOps, pipelines CI/CD, infrastructure as code. Automatización del ciclo completo de desarrollo y despliegues controlados en entornos empresariales.</p>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ PARALLAX SHOWCASE ═══ -->
+    <section class="parallax-showcase" id="showcase">
+      <div class="parallax-showcase__bg">
+        <div class="parallax-showcase__grid" data-parallax-speed="0.15"></div>
+        <div class="parallax-showcase__orb parallax-showcase__orb--1" data-parallax-speed="0.2"></div>
+        <div class="parallax-showcase__orb parallax-showcase__orb--2" data-parallax-speed="0.25"></div>
+      </div>
+      <div class="parallax-showcase__floats" aria-hidden="true">
+        <span class="parallax-showcase__tag" data-parallax-speed="0.35">{ code }</span>
+        <span class="parallax-showcase__tag parallax-showcase__tag--2" data-parallax-speed="0.4">fn(x)</span>
+        <span class="parallax-showcase__tag parallax-showcase__tag--3" data-parallax-speed="0.3">API</span>
+        <span class="parallax-showcase__tag parallax-showcase__tag--4" data-parallax-speed="0.45">SQL</span>
+        <span class="parallax-showcase__tag parallax-showcase__tag--5" data-parallax-speed="0.38">0xFF</span>
+      </div>
+      <div class="parallax-showcase__content" data-parallax-speed="0.55">
+        <h2 class="parallax-showcase__title">Donde el Análisis<br>Encuentra el Código</h2>
+        <p class="parallax-showcase__text">Del requisito al despliegue. Una filosofía de trabajo que conecta procesos de negocio con soluciones técnicas elegantes y mantenibles.</p>
+      </div>
+    </section>
+
+    <!-- ═══ TOOLS HUB ═══ -->
+    <section class="section tools" id="tools">
+      <div class="section__container">
+        <div class="section__header">
+          <span class="section__number">03</span>
+          <h2 class="section__title reveal-text">Herramientas</h2>
+          <p class="section__subtitle reveal-up">Utilidades prácticas para el día a día como developer. Sin registro, sin anuncios, directas al grano.</p>
+        </div>
+        <div class="tools__grid">
+
+          <!-- JSON Formatter -->
+          <div class="tools__card reveal-up" id="tool-json">
+            <div class="tools__card-header">
+              <div class="tools__card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7c0-1.7 1.3-3 3-3h2"/><path d="M4 17c0 1.7 1.3 3 3 3h2"/><path d="M20 7c0-1.7-1.3-3-3-3h-2"/><path d="M20 17c0 1.7-1.3 3-3 3h-2"/><circle cx="12" cy="12" r="1"/></svg>
+              </div>
+              <div>
+                <h3>JSON Formatter</h3>
+                <p>Formatea, minifica y valida JSON al instante.</p>
+              </div>
+            </div>
+            <div class="tools__card-body">
+              <textarea class="tools__input" placeholder='{"ejemplo": "pega tu JSON aquí..."}' data-tool="json-input" rows="4"></textarea>
+              <div class="tools__actions">
+                <button class="tools__btn" data-action="format-json">Formatear</button>
+                <button class="tools__btn tools__btn--alt" data-action="minify-json">Minificar</button>
+              </div>
+              <pre class="tools__output" data-tool="json-output"></pre>
+            </div>
+          </div>
+
+          <!-- Base64 -->
+          <div class="tools__card reveal-up" id="tool-base64">
+            <div class="tools__card-header">
+              <div class="tools__card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+              </div>
+              <div>
+                <h3>Base64 Codec</h3>
+                <p>Codifica y decodifica texto en Base64.</p>
+              </div>
+            </div>
+            <div class="tools__card-body">
+              <textarea class="tools__input" placeholder="Texto a codificar o cadena Base64 a decodificar..." data-tool="base64-input" rows="4"></textarea>
+              <div class="tools__actions">
+                <button class="tools__btn" data-action="encode-base64">Codificar</button>
+                <button class="tools__btn tools__btn--alt" data-action="decode-base64">Decodificar</button>
+              </div>
+              <pre class="tools__output" data-tool="base64-output"></pre>
+            </div>
+          </div>
+
+          <!-- Color Converter -->
+          <div class="tools__card reveal-up" id="tool-color">
+            <div class="tools__card-header">
+              <div class="tools__card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="13.5" cy="6.5" r="4.5" opacity="0.6"/><circle cx="17.5" cy="17.5" r="4.5" opacity="0.6"/><circle cx="6.5" cy="17.5" r="4.5" opacity="0.6"/></svg>
+              </div>
+              <div>
+                <h3>Color Converter</h3>
+                <p>Convierte entre HEX, RGB y HSL en tiempo real.</p>
+              </div>
+            </div>
+            <div class="tools__card-body">
+              <div class="tools__color-row">
+                <input type="text" class="tools__input tools__input--inline" placeholder="#00d4ff" data-tool="color-input" value="#00d4ff">
+                <input type="color" class="tools__color-picker" data-tool="color-picker" value="#00d4ff">
+              </div>
+              <div class="tools__color-output" data-tool="color-output">
+                <div class="tools__color-swatch" data-tool="color-swatch"></div>
+                <div class="tools__color-values">
+                  <span data-tool="color-hex">HEX: #00D4FF</span>
+                  <span data-tool="color-rgb">RGB: 0, 212, 255</span>
+                  <span data-tool="color-hsl">HSL: 190&deg;, 100%, 50%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Timestamp Converter -->
+          <div class="tools__card reveal-up" id="tool-timestamp">
+            <div class="tools__card-header">
+              <div class="tools__card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div>
+                <h3>Timestamp Converter</h3>
+                <p>Convierte entre Unix timestamp y fecha legible.</p>
+              </div>
+            </div>
+            <div class="tools__card-body">
+              <input type="text" class="tools__input tools__input--inline" placeholder="Ej: 1700000000 o 2024-01-15" data-tool="timestamp-input">
+              <div class="tools__actions">
+                <button class="tools__btn" data-action="convert-timestamp">Convertir</button>
+                <button class="tools__btn tools__btn--alt" data-action="timestamp-now">Ahora</button>
+              </div>
+              <pre class="tools__output" data-tool="timestamp-output"></pre>
+            </div>
+          </div>
+
+          <!-- Password Generator -->
+          <div class="tools__card reveal-up" id="tool-password">
+            <div class="tools__card-header">
+              <div class="tools__card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div>
+                <h3>Password Generator</h3>
+                <p>Genera contraseñas seguras y personalizables.</p>
+              </div>
+            </div>
+            <div class="tools__card-body">
+              <div class="tools__password-config">
+                <label class="tools__range-label">
+                  Longitud: <span data-tool="pwd-length-display">16</span>
+                  <input type="range" min="8" max="64" value="16" data-tool="pwd-length" class="tools__range">
+                </label>
+                <div class="tools__checkboxes">
+                  <label><input type="checkbox" checked data-tool="pwd-upper"> ABC</label>
+                  <label><input type="checkbox" checked data-tool="pwd-lower"> abc</label>
+                  <label><input type="checkbox" checked data-tool="pwd-numbers"> 123</label>
+                  <label><input type="checkbox" checked data-tool="pwd-symbols"> !@#</label>
+                </div>
+              </div>
+              <div class="tools__actions">
+                <button class="tools__btn" data-action="generate-password">Generar</button>
+                <button class="tools__btn tools__btn--alt" data-action="copy-password">Copiar</button>
+              </div>
+              <pre class="tools__output tools__output--lg" data-tool="password-output"></pre>
+            </div>
+          </div>
+
+          <!-- URL Encoder -->
+          <div class="tools__card reveal-up" id="tool-url">
+            <div class="tools__card-header">
+              <div class="tools__card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+              </div>
+              <div>
+                <h3>URL Encoder</h3>
+                <p>Codifica y decodifica URLs de forma segura.</p>
+              </div>
+            </div>
+            <div class="tools__card-body">
+              <textarea class="tools__input" placeholder="https://ejemplo.com/ruta con espacios" data-tool="url-input" rows="3"></textarea>
+              <div class="tools__actions">
+                <button class="tools__btn" data-action="encode-url">Codificar</button>
+                <button class="tools__btn tools__btn--alt" data-action="decode-url">Decodificar</button>
+              </div>
+              <pre class="tools__output" data-tool="url-output"></pre>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -205,8 +393,44 @@
     <section class="section stack" id="stack">
       <div class="section__container">
         <div class="section__header">
-          <span class="section__number">03</span>
+          <span class="section__number">04</span>
           <h2 class="section__title reveal-text">Tech Stack</h2>
+          <p class="section__subtitle reveal-up">Las tecnologías que componen mi caja de herramientas.</p>
+        </div>
+        <div class="stack__categories">
+          <div class="stack__category reveal-up">
+            <h3 class="stack__category-title">Lenguajes</h3>
+            <div class="stack__pills">
+              <span class="stack__pill">AL</span>
+              <span class="stack__pill">SQL</span>
+              <span class="stack__pill">Python</span>
+              <span class="stack__pill">JavaScript</span>
+              <span class="stack__pill">CSS / SCSS</span>
+              <span class="stack__pill">HTML5</span>
+            </div>
+          </div>
+          <div class="stack__category reveal-up">
+            <h3 class="stack__category-title">Plataformas</h3>
+            <div class="stack__pills">
+              <span class="stack__pill">Business Central</span>
+              <span class="stack__pill">Dynamics 365</span>
+              <span class="stack__pill">Azure DevOps</span>
+              <span class="stack__pill">Power BI</span>
+              <span class="stack__pill">Git / GitHub</span>
+              <span class="stack__pill">VS Code</span>
+            </div>
+          </div>
+          <div class="stack__category reveal-up">
+            <h3 class="stack__category-title">Datos &amp; APIs</h3>
+            <div class="stack__pills">
+              <span class="stack__pill">SQL Server</span>
+              <span class="stack__pill">MySQL</span>
+              <span class="stack__pill">REST APIs</span>
+              <span class="stack__pill">OData</span>
+              <span class="stack__pill">JSON / XML</span>
+              <span class="stack__pill">Postman</span>
+            </div>
+          </div>
         </div>
         <div class="stack__marquee" aria-label="Technology stack">
           <div class="stack__track">
@@ -222,7 +446,6 @@
             <div class="stack__item">Business Central</div>
             <div class="stack__item">MySQL</div>
             <div class="stack__item">Dynamics 365</div>
-            <!-- Duplicated for seamless loop -->
             <div class="stack__item">AL</div>
             <div class="stack__item">SQL</div>
             <div class="stack__item">Power BI</div>
@@ -240,61 +463,112 @@
       </div>
     </section>
 
-    <!-- ═══ IDEAS / USE CASES ═══ -->
-    <section class="section ideas" id="ideas">
+    <!-- ═══ TIMELINE ═══ -->
+    <section class="section timeline" id="timeline">
       <div class="section__container">
         <div class="section__header">
-          <span class="section__number">04</span>
-          <h2 class="section__title reveal-text">Posibilidades</h2>
-          <p class="section__subtitle reveal-up">Ideas de lo que esta web puede llegar a ser.</p>
+          <span class="section__number">05</span>
+          <h2 class="section__title reveal-text">Trayectoria</h2>
+          <p class="section__subtitle reveal-up">Hitos clave en mi recorrido profesional.</p>
         </div>
-        <div class="ideas__grid">
-          <article class="ideas__card reveal-up">
-            <span class="ideas__card-number">01</span>
-            <h3>Portfolio de Proyectos</h3>
-            <p>Casos de estudio detallados: problema, análisis, solución técnica y resultado. Demuestra tu forma de pensar y resolver.</p>
-            <div class="ideas__card-tags">
-              <span>Case Studies</span><span>Resultados</span>
+        <div class="timeline__track">
+          <div class="timeline__item reveal-up">
+            <div class="timeline__dot"></div>
+            <div class="timeline__content">
+              <span class="timeline__date">2019 — 2020</span>
+              <h3>Formación &amp; Primeros Pasos</h3>
+              <p>Ingeniería informática y primeras experiencias en desarrollo de software. Descubrimiento de la pasión por los sistemas empresariales, el análisis de datos y la resolución de problemas complejos a través de la tecnología.</p>
+            </div>
+          </div>
+          <div class="timeline__item reveal-up">
+            <div class="timeline__dot"></div>
+            <div class="timeline__content">
+              <span class="timeline__date">2020 — 2022</span>
+              <h3>Inmersión en ERP &amp; Business Central</h3>
+              <p>Entrada al ecosistema Microsoft Dynamics. Primeros proyectos de implementación, configuración funcional y desarrollo en AL. Obtención de certificaciones y formación continua en el stack Microsoft.</p>
+            </div>
+          </div>
+          <div class="timeline__item reveal-up">
+            <div class="timeline__dot"></div>
+            <div class="timeline__content">
+              <span class="timeline__date">2022 — 2024</span>
+              <h3>Especialización Técnico-Funcional</h3>
+              <p>Liderazgo de integraciones complejas entre sistemas, desarrollo de APIs, automatización con Power Automate y reporting avanzado con Power BI. Visión end-to-end de proyectos con foco en calidad y escalabilidad.</p>
+            </div>
+          </div>
+          <div class="timeline__item reveal-up">
+            <div class="timeline__dot"></div>
+            <div class="timeline__content">
+              <span class="timeline__date">2024 — Presente</span>
+              <h3>Hub Multidisciplinar</h3>
+              <p>Expansión hacia desarrollo web avanzado, herramientas open-source, ciencia de datos con Python y arquitectura de soluciones. Construcción de este hub como plataforma de conocimiento, utilidades y marca personal.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ PROJECTS ═══ -->
+    <section class="section projects" id="projects">
+      <div class="section__container">
+        <div class="section__header">
+          <span class="section__number">06</span>
+          <h2 class="section__title reveal-text">Proyectos &amp; Ideas</h2>
+          <p class="section__subtitle reveal-up">Lo que construyo, lo que imagino y hacia dónde apunto.</p>
+        </div>
+        <div class="projects__grid">
+          <article class="projects__card reveal-up">
+            <span class="projects__card-number">01</span>
+            <div class="projects__card-status projects__card-status--active">Activo</div>
+            <h3>Jowlab Hub</h3>
+            <p>Este mismo sitio — un hub multi-propósito que combina portfolio profesional con herramientas de desarrollo prácticas. Código abierto, hosting en GitHub Pages, zero dependencies excepto GSAP.</p>
+            <div class="projects__card-tags">
+              <span>HTML/CSS/JS</span><span>GSAP</span><span>GitHub Pages</span>
             </div>
           </article>
-          <article class="ideas__card reveal-up">
-            <span class="ideas__card-number">02</span>
+          <article class="projects__card reveal-up">
+            <span class="projects__card-number">02</span>
+            <div class="projects__card-status">Planificación</div>
+            <h3>Portfolio de Casos de Estudio</h3>
+            <p>Documentación detallada de proyectos reales: problema, análisis, solución técnica y resultado medible. Cada caso muestra el proceso de pensamiento y las decisiones de arquitectura.</p>
+            <div class="projects__card-tags">
+              <span>Case Studies</span><span>Documentación</span>
+            </div>
+          </article>
+          <article class="projects__card reveal-up">
+            <span class="projects__card-number">03</span>
+            <div class="projects__card-status">Planificación</div>
             <h3>Blog Técnico</h3>
-            <p>Artículos sobre Business Central, integraciones, SQL, arquitectura y lecciones aprendidas. Posicionamiento como referente.</p>
-            <div class="ideas__card-tags">
-              <span>Artículos</span><span>SEO</span>
+            <p>Artículos sobre Business Central, integraciones, SQL avanzado, arquitectura y lecciones aprendidas. Posicionamiento como referente técnico en el ecosistema Dynamics 365.</p>
+            <div class="projects__card-tags">
+              <span>Artículos</span><span>SEO</span><span>Knowledge Sharing</span>
             </div>
           </article>
-          <article class="ideas__card reveal-up">
-            <span class="ideas__card-number">03</span>
-            <h3>Laboratorio de Herramientas</h3>
-            <p>Demos interactivas, snippets reutilizables, generadores de código AL y utilidades que compartes con la comunidad.</p>
-            <div class="ideas__card-tags">
-              <span>Open Source</span><span>Tools</span>
+          <article class="projects__card reveal-up">
+            <span class="projects__card-number">04</span>
+            <div class="projects__card-status">Idea</div>
+            <h3>Laboratorio de Herramientas BC</h3>
+            <p>Demos interactivas, snippets reutilizables para AL, generadores de código y utilidades específicas para desarrolladores de Business Central. Open-source y orientado a la comunidad.</p>
+            <div class="projects__card-tags">
+              <span>Open Source</span><span>Tools</span><span>AL</span>
             </div>
           </article>
-          <article class="ideas__card reveal-up">
-            <span class="ideas__card-number">04</span>
+          <article class="projects__card reveal-up">
+            <span class="projects__card-number">05</span>
+            <div class="projects__card-status">Idea</div>
             <h3>Documentación Viva</h3>
-            <p>Guías de integración, patterns de arquitectura BC, y cookbooks técnicos navegables con búsqueda.</p>
-            <div class="ideas__card-tags">
-              <span>Docs</span><span>Knowledge Base</span>
+            <p>Guías de integración, patterns de arquitectura BC y cookbooks técnicos navegables con búsqueda. Una wiki personalizada construida sobre markdown y generación estática.</p>
+            <div class="projects__card-tags">
+              <span>Docs</span><span>Knowledge Base</span><span>MkDocs</span>
             </div>
           </article>
-          <article class="ideas__card reveal-up">
-            <span class="ideas__card-number">05</span>
-            <h3>Dashboard Personal</h3>
-            <p>Visualización en tiempo real de tu actividad en GitHub, contribuciones, y métricas de proyectos vía APIs.</p>
-            <div class="ideas__card-tags">
-              <span>APIs</span><span>Real-time</span>
-            </div>
-          </article>
-          <article class="ideas__card reveal-up">
-            <span class="ideas__card-number">06</span>
-            <h3>Consultoría & Contacto</h3>
-            <p>Landing profesional para ofrecer servicios de consultoría técnica, análisis, y asesoría en procesos ERP.</p>
-            <div class="ideas__card-tags">
-              <span>Services</span><span>Branding</span>
+          <article class="projects__card reveal-up">
+            <span class="projects__card-number">06</span>
+            <div class="projects__card-status">Idea</div>
+            <h3>Dashboard de Actividad</h3>
+            <p>Visualización en tiempo real de actividad en GitHub, contribuciones y métricas de proyectos vía APIs. Un escaparate dinámico de productividad con gráficos interactivos.</p>
+            <div class="projects__card-tags">
+              <span>APIs</span><span>Data Viz</span><span>Real-time</span>
             </div>
           </article>
         </div>
@@ -305,24 +579,27 @@
     <section class="section contact" id="contact">
       <div class="section__container">
         <div class="section__header">
-          <span class="section__number">05</span>
+          <span class="section__number">07</span>
           <h2 class="section__title reveal-text">Contacto</h2>
         </div>
         <div class="contact__content">
           <p class="contact__lead reveal-up">
-            ¿Tienes un proyecto interesante o quieres colaborar?
+            ¿Tienes un proyecto interesante,<br>una idea que explorar o simplemente quieres conectar?
+          </p>
+          <p class="contact__sub reveal-up">
+            Estoy abierto a colaboraciones, consultoría técnica y oportunidades donde pueda aportar valor real.
           </p>
           <div class="contact__links reveal-up">
             <a href="https://github.com/JoelGoGo" target="_blank" rel="noopener noreferrer" class="contact__link" data-magnetic>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
               <span>GitHub</span>
             </a>
             <a href="https://linkedin.com/in/" target="_blank" rel="noopener noreferrer" class="contact__link" data-magnetic>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
               <span>LinkedIn</span>
             </a>
             <a href="mailto:contacto@jowlab.dev" class="contact__link" data-magnetic>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
               <span>Email</span>
             </a>
           </div>
@@ -335,13 +612,21 @@
   <!-- ═══ FOOTER ═══ -->
   <footer class="footer">
     <div class="footer__container">
-      <div class="footer__left">
+      <div class="footer__col">
         <span class="footer__logo">
           <span class="nav__logo-bracket">{</span> Jowlab <span class="nav__logo-bracket">}</span>
         </span>
+        <p class="footer__tagline">Multi-purpose Personal Hub</p>
       </div>
-      <div class="footer__right">
-        <span>&copy; 2026 Joel González. Crafted with precision.</span>
+      <div class="footer__col footer__col--links">
+        <a href="#about">Sobre mí</a>
+        <a href="#expertise">Expertise</a>
+        <a href="#tools">Herramientas</a>
+        <a href="#projects">Proyectos</a>
+      </div>
+      <div class="footer__col footer__col--right">
+        <span>&copy; 2025 Joel González</span>
+        <span>Crafted with precision.</span>
       </div>
     </div>
   </footer>

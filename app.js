@@ -1,153 +1,95 @@
 /* ═══════════════════════════════════════════
-   JOWLAB — App Logic
-   Premium interactions, scroll animations,
-   custom cursor, navigation, preloader
+   JOWLAB — Application Logic
+   Multi-purpose Personal Hub
+   Joel González · Technical Analyst
    ═══════════════════════════════════════════ */
 
 (function () {
   'use strict';
 
-  // ─── PRELOADER ───
+  /* ─── PRELOADER ─── */
   const preloader = document.getElementById('preloader');
-  const progressBar = preloader?.querySelector('.preloader__progress');
-  let loadProgress = 0;
+  const progress = document.querySelector('.preloader__progress');
+  let loaded = 0;
 
-  function simulateProgress() {
-    const interval = setInterval(() => {
-      loadProgress += Math.random() * 15 + 5;
-      if (loadProgress >= 100) {
-        loadProgress = 100;
-        clearInterval(interval);
-        if (progressBar) progressBar.style.width = '100%';
-        setTimeout(() => {
-          preloader?.classList.add('done');
-          initAnimations();
-        }, 400);
-        return;
-      }
-      if (progressBar) progressBar.style.width = loadProgress + '%';
-    }, 80);
-  }
-
-  window.addEventListener('load', simulateProgress);
-
-  // ─── CUSTOM CURSOR ───
-  const cursor = document.querySelector('.cursor');
-  const cursorDot = document.querySelector('.cursor__dot');
-  const cursorRing = document.querySelector('.cursor__ring');
-
-  if (cursor && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    let mouseX = 0, mouseY = 0;
-    let ringX = 0, ringY = 0;
-
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      if (cursorDot) {
-        cursorDot.style.left = mouseX + 'px';
-        cursorDot.style.top = mouseY + 'px';
-      }
-    });
-
-    function animateRing() {
-      ringX += (mouseX - ringX) * 0.12;
-      ringY += (mouseY - ringY) * 0.12;
-      if (cursorRing) {
-        cursorRing.style.left = ringX + 'px';
-        cursorRing.style.top = ringY + 'px';
-      }
-      requestAnimationFrame(animateRing);
+  function tick() {
+    loaded += Math.random() * 18 + 4;
+    if (loaded > 100) loaded = 100;
+    if (progress) progress.style.width = loaded + '%';
+    if (loaded < 100) {
+      setTimeout(tick, 120 + Math.random() * 100);
+    } else {
+      setTimeout(() => {
+        if (preloader) preloader.classList.add('done');
+        document.body.style.overflow = '';
+      }, 400);
     }
-    animateRing();
-
-    // Hover detection for interactive elements
-    const hoverTargets = document.querySelectorAll('a, button, [data-magnetic]');
-    hoverTargets.forEach((el) => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('cursor--hover'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('cursor--hover'));
-    });
   }
 
-  // ─── MAGNETIC BUTTONS ───
-  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    const magneticEls = document.querySelectorAll('[data-magnetic]');
-    magneticEls.forEach((el) => {
-      el.addEventListener('mousemove', (e) => {
-        const rect = el.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        el.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
-      });
-      el.addEventListener('mouseleave', () => {
-        el.style.transform = 'translate(0, 0)';
-        el.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
-      });
-      el.addEventListener('mouseenter', () => {
-        el.style.transition = 'none';
-      });
-    });
-  }
+  document.body.style.overflow = 'hidden';
+  tick();
 
-  // ─── NAVIGATION ───
+  /* ─── MAGNETIC BUTTONS ─── */
+  document.querySelectorAll('[data-magnetic]').forEach(btn => {
+    btn.addEventListener('mousemove', e => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      btn.style.transform = 'translate(' + x * 0.2 + 'px, ' + y * 0.2 + 'px)';
+    });
+
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = '';
+    });
+  });
+
+  /* ─── NAVIGATION SHOW/HIDE ─── */
   const nav = document.getElementById('nav');
   let lastScrollY = 0;
-  let ticking = false;
+  let scrollThreshold = 100;
 
-  function updateNav() {
-    const scrollY = window.scrollY;
-    if (scrollY > 100) {
-      if (scrollY > lastScrollY) {
-        nav?.classList.remove('nav--visible');
-        nav?.classList.add('nav--hidden');
-      } else {
-        nav?.classList.add('nav--visible');
-        nav?.classList.remove('nav--hidden');
-      }
-    } else {
-      nav?.classList.remove('nav--visible');
-      nav?.classList.remove('nav--hidden');
+  function handleNavScroll() {
+    const currentY = window.scrollY;
+    if (currentY <= scrollThreshold) {
+      nav.classList.remove('nav--hidden');
+    } else if (currentY > lastScrollY + 5) {
+      nav.classList.add('nav--hidden');
+    } else if (currentY < lastScrollY - 5) {
+      nav.classList.remove('nav--hidden');
     }
-    lastScrollY = scrollY;
-    ticking = false;
+    lastScrollY = currentY;
   }
 
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(updateNav);
-      ticking = true;
-    }
-  }, { passive: true });
+  window.addEventListener('scroll', handleNavScroll, { passive: true });
 
-  // ─── MOBILE MENU ───
+  /* ─── MOBILE MENU ─── */
   const menuBtn = document.getElementById('menuBtn');
   const mobileMenu = document.getElementById('mobileMenu');
-  const mobileLinks = mobileMenu?.querySelectorAll('.mobile-menu__link');
 
-  menuBtn?.addEventListener('click', () => {
-    const isOpen = mobileMenu?.classList.contains('mobile-menu--open');
-    menuBtn.classList.toggle('active');
-    menuBtn.setAttribute('aria-expanded', !isOpen);
-    mobileMenu?.classList.toggle('mobile-menu--open');
-    mobileMenu?.setAttribute('aria-hidden', isOpen);
-    document.body.style.overflow = isOpen ? '' : 'hidden';
-  });
-
-  mobileLinks?.forEach((link) => {
-    link.addEventListener('click', () => {
-      menuBtn?.classList.remove('active');
-      menuBtn?.setAttribute('aria-expanded', 'false');
-      mobileMenu?.classList.remove('mobile-menu--open');
-      mobileMenu?.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
+  if (menuBtn && mobileMenu) {
+    menuBtn.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('mobile-menu--open');
+      menuBtn.classList.toggle('active', isOpen);
+      menuBtn.setAttribute('aria-expanded', isOpen);
+      mobileMenu.setAttribute('aria-hidden', !isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
     });
-  });
 
-  // ─── SMOOTH SCROLL FOR ANCHOR LINKS ───
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener('click', (e) => {
-      const targetId = anchor.getAttribute('href');
-      if (targetId === '#') return;
-      const target = document.querySelector(targetId);
+    mobileMenu.querySelectorAll('.mobile-menu__link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('mobile-menu--open');
+        menuBtn.classList.remove('active');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+
+  /* ─── SMOOTH SCROLL ─── */
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', e => {
+      const target = document.querySelector(anchor.getAttribute('href'));
       if (target) {
         e.preventDefault();
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -155,111 +97,470 @@
     });
   });
 
-  // ─── SCROLL REVEAL ANIMATIONS ───
-  function initAnimations() {
-    const revealElements = document.querySelectorAll('.reveal-text, .reveal-up');
+  /* ─── SCROLL REVEAL ─── */
+  const revealElements = document.querySelectorAll('.reveal-text, .reveal-up');
 
-    if ('IntersectionObserver' in window &&
-        !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry, i) => {
-            if (entry.isIntersecting) {
-              setTimeout(() => {
-                entry.target.classList.add('revealed');
-              }, i * 100);
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
-      );
-
-      revealElements.forEach((el) => observer.observe(el));
-    } else {
-      // Fallback: show everything immediately
-      revealElements.forEach((el) => el.classList.add('revealed'));
-    }
-
-    // ─── GSAP PARALLAX (if available) ───
-    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-      gsap.registerPlugin(ScrollTrigger);
-
-      // Parallax glow orbs
-      gsap.to('.hero__glow--1', {
-        y: -80,
-        scrollTrigger: {
-          trigger: '.hero',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1,
-        },
-      });
-
-      gsap.to('.hero__glow--2', {
-        y: -50,
-        x: 30,
-        scrollTrigger: {
-          trigger: '.hero',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1,
-        },
-      });
-
-      // Staggered card reveals using GSAP
-      gsap.utils.toArray('.expertise__card').forEach((card, i) => {
-        gsap.from(card, {
-          y: 40,
-          opacity: 0,
-          duration: 0.8,
-          delay: i * 0.1,
-          ease: 'expo.out',
-          scrollTrigger: {
-            trigger: card,
-            start: 'top 85%',
-          },
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            revealObserver.unobserve(entry.target);
+          }
         });
-      });
+      },
+      { threshold: 0.15, rootMargin: '-40px' }
+    );
 
-      gsap.utils.toArray('.ideas__card').forEach((card, i) => {
-        gsap.from(card, {
-          y: 40,
-          opacity: 0,
-          duration: 0.8,
-          delay: i * 0.1,
-          ease: 'expo.out',
-          scrollTrigger: {
-            trigger: card,
-            start: 'top 85%',
-          },
-        });
-      });
-    }
+    revealElements.forEach(el => revealObserver.observe(el));
+  } else {
+    revealElements.forEach(el => el.classList.add('revealed'));
   }
 
-  // ─── TILT EFFECT ON CARDS ───
-  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    document.querySelectorAll('[data-tilt]').forEach((card) => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * -5;
-        const rotateY = ((x - centerX) / centerX) * 5;
-        card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
-      });
+  /* ─── METRICS COUNTER ANIMATION ─── */
+  function animateCounters() {
+    var counters = document.querySelectorAll('[data-target]');
+    counters.forEach(function(counter) {
+      var target = parseInt(counter.dataset.target, 10);
+      var duration = 2000;
+      var startTime = performance.now();
 
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) translateY(0)';
-        card.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
-      });
+      function update(now) {
+        var elapsed = now - startTime;
+        var progress = Math.min(elapsed / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        counter.textContent = Math.round(target * eased);
+        if (progress < 1) requestAnimationFrame(update);
+      }
 
-      card.addEventListener('mouseenter', () => {
-        card.style.transition = 'none';
-      });
+      requestAnimationFrame(update);
     });
   }
+
+  var metricsSection = document.querySelector('.metrics');
+  if (metricsSection && 'IntersectionObserver' in window) {
+    var metricsObserver = new IntersectionObserver(
+      function(entries) {
+        if (entries[0].isIntersecting) {
+          animateCounters();
+          metricsObserver.disconnect();
+        }
+      },
+      { threshold: 0.5 }
+    );
+    metricsObserver.observe(metricsSection);
+  }
+
+  /* ─── TILT EFFECT ─── */
+  document.querySelectorAll('[data-tilt]').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform =
+        'perspective(800px) rotateX(' + (y * -6) + 'deg) rotateY(' + (x * 6) + 'deg) translateY(-4px)';
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+
+  /* ─── GSAP ANIMATIONS ─── */
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+
+    /* Hero glow parallax */
+    gsap.to('.hero__glow--1', {
+      y: -80,
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1
+      }
+    });
+
+    gsap.to('.hero__glow--2', {
+      y: -50,
+      x: 30,
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1
+      }
+    });
+
+    /* Parallax showcase — move elements at different speeds */
+    document.querySelectorAll('[data-parallax-speed]').forEach(function(el) {
+      var speed = parseFloat(el.dataset.parallaxSpeed);
+      gsap.to(el, {
+        y: -100 * speed,
+        scrollTrigger: {
+          trigger: '.parallax-showcase',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1
+        }
+      });
+    });
+
+    /* Card stagger entrance — Expertise */
+    gsap.utils.toArray('.expertise__card').forEach(function(card, i) {
+      gsap.from(card, {
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        delay: i * 0.1,
+        ease: 'expo.out',
+        scrollTrigger: { trigger: card, start: 'top 85%' }
+      });
+    });
+
+    /* Card stagger entrance — Projects */
+    gsap.utils.toArray('.projects__card').forEach(function(card, i) {
+      gsap.from(card, {
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        delay: i * 0.1,
+        ease: 'expo.out',
+        scrollTrigger: { trigger: card, start: 'top 85%' }
+      });
+    });
+
+    /* Tool cards stagger */
+    gsap.utils.toArray('.tools__card').forEach(function(card, i) {
+      gsap.from(card, {
+        y: 30,
+        opacity: 0,
+        duration: 0.7,
+        delay: i * 0.08,
+        ease: 'expo.out',
+        scrollTrigger: { trigger: card, start: 'top 88%' }
+      });
+    });
+
+    /* Timeline items stagger */
+    gsap.utils.toArray('.timeline__item').forEach(function(item, i) {
+      gsap.from(item, {
+        x: -30,
+        opacity: 0,
+        duration: 0.7,
+        delay: i * 0.12,
+        ease: 'expo.out',
+        scrollTrigger: { trigger: item, start: 'top 85%' }
+      });
+    });
+
+    /* Ambient orbs scroll response */
+    gsap.to('.ambient__orb--1', {
+      y: -150,
+      scrollTrigger: {
+        trigger: 'body',
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 2
+      }
+    });
+
+    gsap.to('.ambient__orb--2', {
+      y: 100,
+      x: -50,
+      scrollTrigger: {
+        trigger: 'body',
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 3
+      }
+    });
+
+    gsap.to('.ambient__orb--3', {
+      y: -80,
+      x: 80,
+      scrollTrigger: {
+        trigger: 'body',
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 2.5
+      }
+    });
+  }
+
+  /* ══════════════════════════════════════════
+     TOOLS — Functional Logic
+     ══════════════════════════════════════════ */
+
+  /* ─── JSON Formatter ─── */
+  function handleJsonFormat() {
+    var input = document.querySelector('[data-tool="json-input"]');
+    var output = document.querySelector('[data-tool="json-output"]');
+    if (!input || !output) return;
+    try {
+      var parsed = JSON.parse(input.value);
+      output.textContent = JSON.stringify(parsed, null, 2);
+      output.style.color = 'var(--c-accent)';
+    } catch (e) {
+      output.textContent = 'Error: ' + e.message;
+      output.style.color = 'var(--c-error)';
+    }
+  }
+
+  function handleJsonMinify() {
+    var input = document.querySelector('[data-tool="json-input"]');
+    var output = document.querySelector('[data-tool="json-output"]');
+    if (!input || !output) return;
+    try {
+      var parsed = JSON.parse(input.value);
+      output.textContent = JSON.stringify(parsed);
+      output.style.color = 'var(--c-accent)';
+    } catch (e) {
+      output.textContent = 'Error: ' + e.message;
+      output.style.color = 'var(--c-error)';
+    }
+  }
+
+  /* ─── Base64 Codec ─── */
+  function handleBase64Encode() {
+    var input = document.querySelector('[data-tool="base64-input"]');
+    var output = document.querySelector('[data-tool="base64-output"]');
+    if (!input || !output) return;
+    try {
+      output.textContent = btoa(unescape(encodeURIComponent(input.value)));
+      output.style.color = 'var(--c-accent)';
+    } catch (e) {
+      output.textContent = 'Error: ' + e.message;
+      output.style.color = 'var(--c-error)';
+    }
+  }
+
+  function handleBase64Decode() {
+    var input = document.querySelector('[data-tool="base64-input"]');
+    var output = document.querySelector('[data-tool="base64-output"]');
+    if (!input || !output) return;
+    try {
+      output.textContent = decodeURIComponent(escape(atob(input.value.trim())));
+      output.style.color = 'var(--c-accent)';
+    } catch (e) {
+      output.textContent = 'Error: cadena Base64 inválida';
+      output.style.color = 'var(--c-error)';
+    }
+  }
+
+  /* ─── Color Converter ─── */
+  function handleColorInput() {
+    var input = document.querySelector('[data-tool="color-input"]');
+    var picker = document.querySelector('[data-tool="color-picker"]');
+    var swatch = document.querySelector('[data-tool="color-swatch"]');
+    var hexEl = document.querySelector('[data-tool="color-hex"]');
+    var rgbEl = document.querySelector('[data-tool="color-rgb"]');
+    var hslEl = document.querySelector('[data-tool="color-hsl"]');
+    if (!input || !swatch) return;
+
+    var val = input.value.trim();
+    var r, g, b;
+
+    /* Parse HEX */
+    if (/^#?[0-9a-fA-F]{3,6}$/.test(val)) {
+      var hex = val.startsWith('#') ? val : '#' + val;
+      if (hex.length === 4) {
+        hex = '#' + hex[1] + hex[1] + hex[2] + hex[2] + hex[3] + hex[3];
+      }
+      r = parseInt(hex.slice(1, 3), 16);
+      g = parseInt(hex.slice(3, 5), 16);
+      b = parseInt(hex.slice(5, 7), 16);
+    }
+    /* Parse RGB */
+    else if (/^rgb/i.test(val)) {
+      var m = val.match(/(\d+)/g);
+      if (m && m.length >= 3) {
+        r = parseInt(m[0], 10);
+        g = parseInt(m[1], 10);
+        b = parseInt(m[2], 10);
+      } else return;
+    } else return;
+
+    var hexOut = '#' + [r, g, b].map(function(v) {
+      return v.toString(16).padStart(2, '0');
+    }).join('');
+
+    /* RGB ➝ HSL */
+    var rn = r / 255, gn = g / 255, bn = b / 255;
+    var max = Math.max(rn, gn, bn), min = Math.min(rn, gn, bn);
+    var h = 0, s = 0, l = (max + min) / 2;
+
+    if (max !== min) {
+      var d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      switch (max) {
+        case rn: h = ((gn - bn) / d + (gn < bn ? 6 : 0)) / 6; break;
+        case gn: h = ((bn - rn) / d + 2) / 6; break;
+        case bn: h = ((rn - gn) / d + 4) / 6; break;
+      }
+    }
+
+    swatch.style.background = hexOut;
+    if (picker) picker.value = hexOut;
+    if (hexEl) hexEl.textContent = 'HEX: ' + hexOut.toUpperCase();
+    if (rgbEl) rgbEl.textContent = 'RGB: ' + r + ', ' + g + ', ' + b;
+    if (hslEl) hslEl.textContent = 'HSL: ' + Math.round(h * 360) + '\u00B0, ' + Math.round(s * 100) + '%, ' + Math.round(l * 100) + '%';
+  }
+
+  /* ─── Timestamp Converter ─── */
+  function handleTimestampConvert() {
+    var input = document.querySelector('[data-tool="timestamp-input"]');
+    var output = document.querySelector('[data-tool="timestamp-output"]');
+    if (!input || !output) return;
+    var val = input.value.trim();
+
+    var num = Number(val);
+    if (!isNaN(num) && val !== '') {
+      var ms = num > 1e12 ? num : num * 1000;
+      var date = new Date(ms);
+      output.textContent =
+        'UTC:   ' + date.toUTCString() + '\n' +
+        'Local: ' + date.toLocaleString('es-ES') + '\n' +
+        'ISO:   ' + date.toISOString();
+      output.style.color = 'var(--c-accent)';
+    } else {
+      var d = new Date(val);
+      if (!isNaN(d.getTime())) {
+        output.textContent =
+          'Unix (s):  ' + Math.floor(d.getTime() / 1000) + '\n' +
+          'Unix (ms): ' + d.getTime();
+        output.style.color = 'var(--c-accent)';
+      } else {
+        output.textContent = 'Formato no reconocido. Usa un timestamp o una fecha válida.';
+        output.style.color = 'var(--c-error)';
+      }
+    }
+  }
+
+  function handleTimestampNow() {
+    var input = document.querySelector('[data-tool="timestamp-input"]');
+    if (input) {
+      input.value = Math.floor(Date.now() / 1000);
+      handleTimestampConvert();
+    }
+  }
+
+  /* ─── Password Generator ─── */
+  function handleGeneratePassword() {
+    var lengthInput = document.querySelector('[data-tool="pwd-length"]');
+    var output = document.querySelector('[data-tool="password-output"]');
+    if (!lengthInput || !output) return;
+
+    var length = parseInt(lengthInput.value, 10);
+    var upper = document.querySelector('[data-tool="pwd-upper"]');
+    var lower = document.querySelector('[data-tool="pwd-lower"]');
+    var numbers = document.querySelector('[data-tool="pwd-numbers"]');
+    var symbols = document.querySelector('[data-tool="pwd-symbols"]');
+
+    var chars = '';
+    if (upper && upper.checked) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    if (lower && lower.checked) chars += 'abcdefghijklmnopqrstuvwxyz';
+    if (numbers && numbers.checked) chars += '0123456789';
+    if (symbols && symbols.checked) chars += '!@#$%^&*()_+-=[]{}|;:,.<>?';
+
+    if (!chars) {
+      output.textContent = 'Selecciona al menos un tipo de carácter.';
+      output.style.color = 'var(--c-error)';
+      return;
+    }
+
+    var array = new Uint32Array(length);
+    crypto.getRandomValues(array);
+    var password = '';
+    for (var i = 0; i < length; i++) {
+      password += chars[array[i] % chars.length];
+    }
+
+    output.textContent = password;
+    output.style.color = 'var(--c-accent)';
+  }
+
+  function handleCopyPassword() {
+    var output = document.querySelector('[data-tool="password-output"]');
+    if (!output || !output.textContent) return;
+    navigator.clipboard.writeText(output.textContent).then(function() {
+      var orig = output.style.color;
+      output.style.color = 'var(--c-success)';
+      setTimeout(function() { output.style.color = orig; }, 600);
+    });
+  }
+
+  /* ─── URL Encoder/Decoder ─── */
+  function handleUrlEncode() {
+    var input = document.querySelector('[data-tool="url-input"]');
+    var output = document.querySelector('[data-tool="url-output"]');
+    if (!input || !output) return;
+    output.textContent = encodeURIComponent(input.value);
+    output.style.color = 'var(--c-accent)';
+  }
+
+  function handleUrlDecode() {
+    var input = document.querySelector('[data-tool="url-input"]');
+    var output = document.querySelector('[data-tool="url-output"]');
+    if (!input || !output) return;
+    try {
+      output.textContent = decodeURIComponent(input.value);
+      output.style.color = 'var(--c-accent)';
+    } catch (e) {
+      output.textContent = 'Error: URL malformada';
+      output.style.color = 'var(--c-error)';
+    }
+  }
+
+  /* ─── Tool Action Dispatcher ─── */
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('[data-action]');
+    if (!btn) return;
+    var action = btn.dataset.action;
+
+    switch (action) {
+      case 'format-json':       handleJsonFormat(); break;
+      case 'minify-json':       handleJsonMinify(); break;
+      case 'encode-base64':     handleBase64Encode(); break;
+      case 'decode-base64':     handleBase64Decode(); break;
+      case 'convert-timestamp': handleTimestampConvert(); break;
+      case 'timestamp-now':     handleTimestampNow(); break;
+      case 'generate-password': handleGeneratePassword(); break;
+      case 'copy-password':     handleCopyPassword(); break;
+      case 'encode-url':        handleUrlEncode(); break;
+      case 'decode-url':        handleUrlDecode(); break;
+    }
+  });
+
+  /* Color tool — live input sync */
+  var colorInput = document.querySelector('[data-tool="color-input"]');
+  var colorPicker = document.querySelector('[data-tool="color-picker"]');
+
+  if (colorInput) {
+    colorInput.addEventListener('input', handleColorInput);
+  }
+  if (colorPicker) {
+    colorPicker.addEventListener('input', function(e) {
+      if (colorInput) {
+        colorInput.value = e.target.value;
+        handleColorInput();
+      }
+    });
+  }
+
+  /* Password length display */
+  var pwdLength = document.querySelector('[data-tool="pwd-length"]');
+  var pwdDisplay = document.querySelector('[data-tool="pwd-length-display"]');
+  if (pwdLength && pwdDisplay) {
+    pwdLength.addEventListener('input', function(e) {
+      pwdDisplay.textContent = e.target.value;
+    });
+  }
+
+  /* Initialize color swatch with default */
+  if (colorInput && colorInput.value) {
+    handleColorInput();
+  }
+
 })();
