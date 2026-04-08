@@ -219,15 +219,47 @@
       });
     });
 
-    /* Card stagger entrance — Projects */
-    gsap.utils.toArray('.projects__card').forEach(function(card, i) {
+    /* Horizontal scroll — Projects */
+    var scrollEl = document.querySelector('.projects__scroll');
+    var trackEl = document.querySelector('.projects__track');
+    if (scrollEl && trackEl) {
+      var scrollWidth = function () {
+        return trackEl.scrollWidth - scrollEl.offsetWidth;
+      };
+      gsap.to(trackEl, {
+        x: function () { return -scrollWidth(); },
+        ease: 'none',
+        scrollTrigger: {
+          trigger: scrollEl,
+          pin: true,
+          scrub: 0.8,
+          end: function () { return '+=' + scrollWidth(); },
+          invalidateOnRefresh: true
+        }
+      });
+    }
+
+    /* Stack cards stagger */
+    gsap.utils.toArray('.stack-card').forEach(function(card, i) {
       gsap.from(card, {
-        y: 40,
+        y: 20,
         opacity: 0,
-        duration: 0.8,
-        delay: i * 0.1,
+        duration: 0.6,
+        delay: (i % 6) * 0.06,
         ease: 'expo.out',
-        scrollTrigger: { trigger: card, start: 'top 85%' }
+        scrollTrigger: { trigger: card, start: 'top 90%' }
+      });
+    });
+
+    /* Toolkit items stagger */
+    gsap.utils.toArray('.toolkit__item').forEach(function(item, i) {
+      gsap.from(item, {
+        y: 30,
+        opacity: 0,
+        duration: 0.7,
+        delay: i * 0.06,
+        ease: 'expo.out',
+        scrollTrigger: { trigger: item, start: 'top 88%' }
       });
     });
 
@@ -254,6 +286,36 @@
         scrollTrigger: { trigger: item, start: 'top 85%' }
       });
     });
+
+    /* Timeline scroll progress bar */
+    var timelineTrack = document.querySelector('.timeline__track');
+    var timelineProgress = document.querySelector('.timeline__progress');
+    var timelineDots = document.querySelectorAll('.timeline__dot');
+    if (timelineTrack && timelineProgress) {
+      gsap.to(timelineProgress, {
+        height: function () { return timelineTrack.scrollHeight + 'px'; },
+        ease: 'none',
+        scrollTrigger: {
+          trigger: timelineTrack,
+          start: 'top 80%',
+          end: 'bottom 20%',
+          scrub: 0.3,
+          invalidateOnRefresh: true,
+          onUpdate: function (self) {
+            var progressH = self.progress * timelineTrack.scrollHeight;
+            timelineDots.forEach(function (dot) {
+              var item = dot.closest('.timeline__item');
+              var dotTop = item ? item.offsetTop : 0;
+              if (progressH >= dotTop) {
+                dot.classList.add('reached');
+              } else {
+                dot.classList.remove('reached');
+              }
+            });
+          }
+        }
+      });
+    }
 
     /* Ambient orbs scroll response */
     gsap.to('.ambient__orb--1', {
