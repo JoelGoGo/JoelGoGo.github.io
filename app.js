@@ -208,16 +208,20 @@
     });
 
     /* Card stagger entrance — Expertise */
-    gsap.utils.toArray('.expertise__card').forEach(function(card, i) {
-      gsap.from(card, {
-        y: 40,
-        opacity: 0,
-        duration: 0.8,
-        delay: i * 0.1,
-        ease: 'expo.out',
-        scrollTrigger: { trigger: card, start: 'top 85%' }
-      });
+    gsap.utils.toArray('.expertise__card').forEach(function(card) {
+      card.classList.remove('reveal-up');
     });
+    gsap.fromTo('.expertise__card',
+      { y: 40, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: 'expo.out',
+        scrollTrigger: { trigger: '.expertise__grid', start: 'top 80%' }
+      }
+    );
 
     /* Horizontal scroll — Projects */
     var scrollEl = document.querySelector('.projects__scroll');
@@ -232,10 +236,20 @@
         scrollTrigger: {
           trigger: scrollEl,
           pin: true,
+          start: 'center center',
           scrub: 0.8,
           end: function () { return '+=' + scrollWidth(); },
           invalidateOnRefresh: true
         }
+      });
+
+      trackEl.addEventListener('mousemove', function(e) {
+        var cards = trackEl.querySelectorAll('.projects__card:not(.projects__card--ghost)');
+        cards.forEach(function(card) {
+          var rect = card.getBoundingClientRect();
+          card.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
+          card.style.setProperty('--my', (e.clientY - rect.top) + 'px');
+        });
       });
     }
 
@@ -252,39 +266,51 @@
     });
 
     /* Toolkit items stagger */
-    gsap.utils.toArray('.toolkit__item').forEach(function(item, i) {
-      gsap.from(item, {
-        y: 30,
-        opacity: 0,
-        duration: 0.7,
-        delay: i * 0.06,
-        ease: 'expo.out',
-        scrollTrigger: { trigger: item, start: 'top 88%' }
-      });
+    gsap.utils.toArray('.toolkit__item').forEach(function(item) {
+      item.classList.remove('reveal-up');
     });
+    gsap.fromTo('.toolkit__item',
+      { y: 30, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.7,
+        stagger: 0.06,
+        ease: 'expo.out',
+        scrollTrigger: { trigger: '.toolkit__grid', start: 'top 80%' }
+      }
+    );
 
     /* Tool cards stagger */
-    gsap.utils.toArray('.tools__card').forEach(function(card, i) {
-      gsap.from(card, {
-        y: 30,
-        opacity: 0,
-        duration: 0.7,
-        delay: i * 0.08,
-        ease: 'expo.out',
-        scrollTrigger: { trigger: card, start: 'top 88%' }
-      });
+    gsap.utils.toArray('.tools__card').forEach(function(card) {
+      card.classList.remove('reveal-up');
     });
-
-    /* Timeline items stagger */
-    gsap.utils.toArray('.timeline__item').forEach(function(item, i) {
-      gsap.from(item, {
-        x: -30,
-        opacity: 0,
+    gsap.fromTo('.tools__card',
+      { y: 30, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
         duration: 0.7,
-        delay: i * 0.12,
+        stagger: 0.08,
         ease: 'expo.out',
-        scrollTrigger: { trigger: item, start: 'top 85%' }
-      });
+        scrollTrigger: { trigger: '.tools__grid', start: 'top 80%' }
+      }
+    );
+
+    gsap.utils.toArray('.timeline__item').forEach(function(item) {
+      item.classList.remove('reveal-up');
+    });
+    gsap.utils.toArray('.timeline__item').forEach(function(item, i) {
+      gsap.fromTo(item,
+        { x: i % 2 === 0 ? -30 : 30, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 0.7,
+          ease: 'expo.out',
+          scrollTrigger: { trigger: item, start: 'top 85%' }
+        }
+      );
     });
 
     /* Timeline scroll progress bar */
@@ -348,6 +374,10 @@
         end: 'bottom bottom',
         scrub: 2.5
       }
+    });
+
+    window.addEventListener('load', function () {
+      ScrollTrigger.refresh();
     });
   }
 

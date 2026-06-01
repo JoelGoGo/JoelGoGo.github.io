@@ -94,7 +94,6 @@
           <div class="hero__glow hero__glow--2"></div>
         </div>
         <div class="hero__content">
-          <span class="hero__tag reveal-up">Multi-purpose Personal Hub</span>
           <div class="hero__title">
             <span class="hero__title-line reveal-up">Joel</span>
             <span class="hero__title-line hero__title-line--accent reveal-up"
@@ -775,7 +774,7 @@
                 <span class="stack-card__desc">ERP SaaS / On-Prem</span>
               </div>
               <div class="stack-card">
-                <img class="stack-card__icon" src="https://cdn.simpleicons.org/dynamics365/white" alt="D365" width="32" height="32" loading="lazy">
+                <div class="stack-card__badge">D365</div>
                 <span class="stack-card__name">Dynamics 365</span>
                 <span class="stack-card__desc">Enterprise Solutions</span>
               </div>
@@ -785,7 +784,7 @@
                 <span class="stack-card__desc">CI/CD Pipelines</span>
               </div>
               <div class="stack-card">
-                <img class="stack-card__icon" src="https://cdn.simpleicons.org/powerbi/white" alt="Power BI" width="32" height="32" loading="lazy">
+                <div class="stack-card__badge">PBI</div>
                 <span class="stack-card__name">Power BI</span>
                 <span class="stack-card__desc">Data Visualization</span>
               </div>
@@ -805,7 +804,7 @@
                 <span class="stack-card__desc">Containers</span>
               </div>
               <div class="stack-card">
-                <img class="stack-card__icon" src="https://cdn.simpleicons.org/powerapps/white" alt="Power Platform" width="32" height="32" loading="lazy">
+                <div class="stack-card__badge">PP</div>
                 <span class="stack-card__name">Power Platform</span>
                 <span class="stack-card__desc">Low-Code / Automate</span>
               </div>
@@ -1005,6 +1004,7 @@
                 <span>Multi-lang</span><span>Open Source</span>
               </div>
             </article>
+            <article class="projects__card projects__card--ghost" aria-hidden="true"></article>
           </div>
         </div>
       </section>
@@ -1027,9 +1027,7 @@
               <span class="toolkit__use">AI Development</span>
             </div>
             <div class="toolkit__item reveal-up">
-              <div class="toolkit__icon">
-                <img src="https://cdn.simpleicons.org/openai/10A37F" alt="ChatGPT" width="32" height="32" loading="lazy">
-              </div>
+              <div aria-label="OpenAI" class="lobe-flex" style="--lobe-flex: none; --lobe-flex-justify: center; --lobe-flex-align: center; background: rgb(25, 195, 125); border-radius: 50%; color: rgb(255, 255, 255); height: 50px; overflow: hidden; width: 50px;"><svg fill="currentColor" fill-rule="evenodd" height="50" viewBox="0 0 24 24" width="50" xmlns="http://www.w3.org/2000/svg" color="#fff" style="flex: 0 0 auto; line-height: 1; transform: scale(0.75);"><title>OpenAI</title><path d="M9.205 8.658v-2.26c0-.19.072-.333.238-.428l4.543-2.616c.619-.357 1.356-.523 2.117-.523 2.854 0 4.662 2.212 4.662 4.566 0 .167 0 .357-.024.547l-4.71-2.759a.797.797 0 00-.856 0l-5.97 3.473zm10.609 8.8V12.06c0-.333-.143-.57-.429-.737l-5.97-3.473 1.95-1.118a.433.433 0 01.476 0l4.543 2.617c1.309.76 2.189 2.378 2.189 3.948 0 1.808-1.07 3.473-2.76 4.163zM7.802 12.703l-1.95-1.142c-.167-.095-.239-.238-.239-.428V5.899c0-2.545 1.95-4.472 4.591-4.472 1 0 1.927.333 2.712.928L8.23 5.067c-.285.166-.428.404-.428.737v6.898zM12 15.128l-2.795-1.57v-3.33L12 8.658l2.795 1.57v3.33L12 15.128zm1.796 7.23c-1 0-1.927-.332-2.712-.927l4.686-2.712c.285-.166.428-.404.428-.737v-6.898l1.974 1.142c.167.095.238.238.238.428v5.233c0 2.545-1.974 4.472-4.614 4.472zm-5.637-5.303l-4.544-2.617c-1.308-.761-2.188-2.378-2.188-3.948A4.482 4.482 0 014.21 6.327v5.423c0 .333.143.571.428.738l5.947 3.449-1.95 1.118a.432.432 0 01-.476 0zm-.262 3.9c-2.688 0-4.662-2.021-4.662-4.519 0-.19.024-.38.047-.57l4.686 2.71c.286.167.571.167.856 0l5.97-3.448v2.26c0 .19-.07.333-.237.428l-4.543 2.616c-.619.357-1.356.523-2.117.523zm5.899 2.83a5.947 5.947 0 005.827-4.756C22.287 18.339 24 15.84 24 13.296c0-1.665-.713-3.282-1.998-4.448.119-.5.19-.999.19-1.498 0-3.401-2.759-5.947-5.946-5.947-.642 0-1.26.095-1.88.31A5.962 5.962 0 0010.205 0a5.947 5.947 0 00-5.827 4.757C1.713 5.447 0 7.945 0 10.49c0 1.666.713 3.283 1.998 4.448-.119.5-.19 1-.19 1.499 0 3.401 2.759 5.946 5.946 5.946.642 0 1.26-.095 1.88-.309a5.96 5.96 0 004.162 1.713z"></path></svg></div>
               <span class="toolkit__name">ChatGPT</span>
               <span class="toolkit__use">General Workflow</span>
             </div>
@@ -1049,7 +1047,7 @@
             </div>
             <div class="toolkit__item reveal-up">
               <div class="toolkit__icon">
-                <img src="https://cdn.simpleicons.org/visualstudiocode/007ACC" alt="VS Code" width="32" height="32" loading="lazy">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/vscode/vscode-original.svg" alt="VS Code" width="32" height="32" loading="lazy">
               </div>
               <span class="toolkit__name">VS Code</span>
               <span class="toolkit__use">IDE / Coding</span>
@@ -1063,7 +1061,7 @@
             </div>
             <div class="toolkit__item reveal-up">
               <div class="toolkit__icon">
-                <img src="https://cdn.simpleicons.org/powershell/5391FE" alt="PowerShell" width="32" height="32" loading="lazy">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Powershell_128.svg" alt="PowerShell" width="32" height="32" loading="lazy">
               </div>
               <span class="toolkit__name">PowerShell</span>
               <span class="toolkit__use">Automation</span>
@@ -1091,7 +1089,7 @@
             </div>
             <div class="toolkit__item reveal-up">
               <div class="toolkit__icon">
-                <img src="https://cdn.simpleicons.org/powerapps/9B59B6" alt="Power Platform" width="32" height="32" loading="lazy">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Microsoft_Power_Platform_logo.svg" alt="Power Platform" width="32" height="32" loading="lazy">
               </div>
               <span class="toolkit__name">Power Platform</span>
               <span class="toolkit__use">Low-Code Automation</span>
@@ -1120,7 +1118,7 @@
             </p>
             <p class="contact__sub reveal-up">
               Estoy abierto a colaboraciones, consultoría técnica y
-              oportunidades donde pueda aportar valor real.
+              oportunidades donde pueda aportar valor.
             </p>
             <div class="contact__links reveal-up">
               <a
@@ -1194,7 +1192,6 @@
             <span class="nav__logo-bracket">{</span> Jowlab
             <span class="nav__logo-bracket">}</span>
           </span>
-          <p class="footer__tagline">Multi-purpose Personal Hub</p>
         </div>
         <div class="footer__col footer__col--links">
           <a href="#about">Sobre mí</a>
@@ -1205,10 +1202,9 @@
         </div>
         <div class="footer__col footer__col--right">
           <span>&copy; 2026 Joel González</span>
-          <span>Crafted with precision.</span>
         </div>
       </div>
     </footer>
-    <script src="app.js"></script>
+    <script src="app.js" defer></script>
   </body>
 </html>

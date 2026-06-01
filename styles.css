@@ -1188,6 +1188,7 @@ button {
   height: 32px;
   object-fit: contain;
   flex-shrink: 0;
+  filter: brightness(0) invert(1);
 }
 
 .stack-card__info {
@@ -1305,6 +1306,7 @@ button {
   background: rgba(255, 255, 255, 0.15);
   box-shadow: 0 0 0 4px var(--c-bg), 0 0 0 6px rgba(255, 255, 255, 0.1);
   transition: background 0.4s, box-shadow 0.4s;
+  z-index: 2;
 }
 
 .timeline__dot.reached {
@@ -1374,13 +1376,17 @@ button {
 .projects__card::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--g-accent);
+  inset: 0;
+  background: radial-gradient(
+    500px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(0, 212, 255, 0.13),
+    transparent 40%
+  );
   opacity: 0;
   transition: opacity 0.4s;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
 }
 
 .projects__card:hover {
@@ -1388,8 +1394,15 @@ button {
   transform: translateY(-4px);
 }
 
+.projects__card--ghost {
+  visibility: hidden;
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
 .projects__card:hover::before {
   opacity: 1;
+  transition: opacity 0.15s;
 }
 
 .projects__card-number {
